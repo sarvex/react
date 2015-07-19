@@ -60,7 +60,7 @@ var ReactDefaultPerf = {
         'Exclusive render time (ms)': roundFloat(item.render),
         'Mount time per instance (ms)': roundFloat(item.exclusive / item.count),
         'Render time per instance (ms)': roundFloat(item.render / item.count),
-        'Instances': item.count
+        'Instances': item.count,
       };
     }));
     // TODO: ReactDefaultPerfAnalysis.getTotalTime() does not return the correct
@@ -74,7 +74,7 @@ var ReactDefaultPerf = {
       return {
         'Owner > component': item.componentName,
         'Inclusive time (ms)': roundFloat(item.time),
-        'Instances': item.count
+        'Instances': item.count,
       };
     }));
     console.log(
@@ -92,7 +92,7 @@ var ReactDefaultPerf = {
       return {
         'Owner > component': item.componentName,
         'Wasted time (ms)': item.time,
-        'Instances': item.count
+        'Instances': item.count,
       };
     });
   },
@@ -112,8 +112,8 @@ var ReactDefaultPerf = {
     console.table(summary.map(function(item) {
       var result = {};
       result[DOMProperty.ID_ATTRIBUTE_NAME] = item.id;
-      result['type'] = item.type;
-      result['args'] = JSON.stringify(item.args);
+      result.type = item.type;
+      result.args = JSON.stringify(item.args);
       return result;
     }));
     console.log(
@@ -132,7 +132,7 @@ var ReactDefaultPerf = {
     writes[id].push({
       type: fnName,
       time: totalTime,
-      args: args
+      args: args,
     });
   },
 
@@ -155,7 +155,7 @@ var ReactDefaultPerf = {
           counts: {},
           writes: {},
           displayNames: {},
-          totalTime: 0
+          totalTime: 0,
         });
         start = performanceNow();
         rv = func.apply(this, args);
@@ -163,8 +163,8 @@ var ReactDefaultPerf = {
           ReactDefaultPerf._allMeasurements.length - 1
         ].totalTime = performanceNow() - start;
         return rv;
-      } else if (moduleName === 'ReactDOMIDOperations' ||
-        moduleName === 'ReactComponentBrowserEnvironment') {
+      } else if (fnName === '_mountImageIntoNode' ||
+          moduleName === 'ReactDOMIDOperations') {
         start = performanceNow();
         rv = func.apply(this, args);
         totalTime = performanceNow() - start;
@@ -210,6 +210,10 @@ var ReactDefaultPerf = {
         fnName === 'updateComponent' || // TODO: receiveComponent()?
         fnName === '_renderValidatedComponent')) {
 
+        if (typeof this._currentElement.type === 'string') {
+          return func.apply(this, args);
+        }
+
         var rootNodeID = fnName === 'mountComponent' ?
           args[0] :
           this._rootNodeID;
@@ -243,12 +247,10 @@ var ReactDefaultPerf = {
         }
 
         entry.displayNames[rootNodeID] = {
-          current: typeof this._currentElement.type === 'string' ?
-            this._currentElement.type :
-            this.getName(),
+          current: this.getName(),
           owner: this._currentElement._owner ?
             this._currentElement._owner.getName() :
-            '<root>'
+            '<root>',
         };
 
         return rv;
@@ -256,7 +258,7 @@ var ReactDefaultPerf = {
         return func.apply(this, args);
       }
     };
-  }
+  },
 };
 
 module.exports = ReactDefaultPerf;

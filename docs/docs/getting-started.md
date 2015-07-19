@@ -9,8 +9,8 @@ redirect_from: "docs/index.html"
 
 The easiest way to start hacking on React is using the following JSFiddle Hello World examples:
 
- * **[React JSFiddle](http://jsfiddle.net/reactjs/69z2wepo/)**
- * [React JSFiddle without JSX](http://jsfiddle.net/reactjs/5vjqabv3/)
+ * **[React JSFiddle](https://jsfiddle.net/reactjs/69z2wepo/)**
+ * [React JSFiddle without JSX](https://jsfiddle.net/reactjs/5vjqabv3/)
 
 ## Starter Kit
 
@@ -28,6 +28,8 @@ In the root directory of the starter kit, create a `helloworld.html` with the fo
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
     <script src="build/react.js"></script>
     <script src="build/JSXTransformer.js"></script>
   </head>
@@ -62,9 +64,11 @@ Then reference it from `helloworld.html`:
 <script type="text/jsx" src="src/helloworld.js"></script>
 ```
 
+Note that some browsers (Chrome, e.g.) will fail to load the file unless it's served via HTTP.
+
 ### Offline Transform
 
-First install the command-line tools (requires [npm](http://npmjs.org/)):
+First install the command-line tools (requires [npm](https://www.npmjs.com/)):
 
 ```
 npm install -g react-tools
@@ -89,10 +93,11 @@ React.render(
 
 Update your HTML file as below:
 
-```html{6,10}
+```html{7,11}
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8" />
     <title>Hello React!</title>
     <script src="build/react.js"></script>
     <!-- No need for JSXTransformer! -->
@@ -106,11 +111,11 @@ Update your HTML file as below:
 
 ## Want CommonJS?
 
-If you want to use React with [browserify](http://browserify.org/), [webpack](http://webpack.github.io/), or another CommonJS-compatible module system, just use the [`react` npm package](https://www.npmjs.org/package/react). In addition, the `jsx` build tool can be integrated into most packaging systems (not just CommonJS) quite easily.
+If you want to use React with [browserify](http://browserify.org/), [webpack](https://webpack.github.io/), or another CommonJS-compatible module system, just use the [`react` npm package](https://www.npmjs.com/package/react). In addition, the `jsx` build tool can be integrated into most packaging systems (not just CommonJS) quite easily.
 
 ## Next Steps
 
-Check out [the tutorial](/react/docs/tutorial.html) and the other examples in the starter kit's `examples` directory to learn more. 
+Check out [the tutorial](/react/docs/tutorial.html) and the other examples in the starter kit's `examples` directory to learn more.
 
 We also have a wiki where the community contributes with [workflows, UI-components, routing, data management etc.](https://github.com/facebook/react/wiki/Complementary-Tools)
 

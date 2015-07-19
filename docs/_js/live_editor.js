@@ -11,24 +11,24 @@ var IS_MOBILE = (
 var CodeMirrorEditor = React.createClass({
   propTypes: {
     lineNumbers: React.PropTypes.bool,
-    onChange: React.PropTypes.func
+    onChange: React.PropTypes.func,
   },
   getDefaultProps: function() {
     return {
-      lineNumbers: false
+      lineNumbers: false,
     };
   },
   componentDidMount: function() {
     if (IS_MOBILE) return;
 
-    this.editor = CodeMirror.fromTextArea(this.refs.editor.getDOMNode(), {
+    this.editor = CodeMirror.fromTextArea(React.findDOMNode(this.refs.editor), {
       mode: 'javascript',
       lineNumbers: this.props.lineNumbers,
       lineWrapping: true,
       smartIndent: false,  // javascript mode does bad things with jsx indents
       matchBrackets: true,
       theme: 'solarized-light',
-      readOnly: this.props.readOnly
+      readOnly: this.props.readOnly,
     });
     this.editor.on('change', this.handleChange);
   },
@@ -60,7 +60,7 @@ var CodeMirrorEditor = React.createClass({
         {editor}
       </div>
     );
-  }
+  },
 });
 
 var selfCleaningTimeout = {
@@ -71,7 +71,7 @@ var selfCleaningTimeout = {
   setTimeout: function() {
     clearTimeout(this.timeoutID);
     this.timeoutID = setTimeout.apply(null, arguments);
-  }
+  },
 };
 
 var ReactPlayground = React.createClass({
@@ -85,7 +85,7 @@ var ReactPlayground = React.createClass({
     renderCode: React.PropTypes.bool,
     showCompiledJSTab: React.PropTypes.bool,
     showLineNumbers: React.PropTypes.bool,
-    editorTabTitle: React.PropTypes.string
+    editorTabTitle: React.PropTypes.string,
   },
 
   getDefaultProps: function() {
@@ -95,7 +95,7 @@ var ReactPlayground = React.createClass({
       },
       editorTabTitle: 'Live JSX Editor',
       showCompiledJSTab: true,
-      showLineNumbers: false
+      showLineNumbers: false,
     };
   },
 
@@ -194,7 +194,7 @@ var ReactPlayground = React.createClass({
   },
 
   executeCode: function() {
-    var mountNode = this.refs.mount.getDOMNode();
+    var mountNode = React.findDOMNode(this.refs.mount);
 
     try {
       React.unmountComponentAtNode(mountNode);
@@ -218,5 +218,5 @@ var ReactPlayground = React.createClass({
         );
       }, 500);
     }
-  }
+  },
 });

@@ -21,7 +21,7 @@ describe('ReactComponentWithPureRenderMixin', function() {
     React = require('React');
     ReactComponentWithPureRenderMixin =
       require('ReactComponentWithPureRenderMixin');
-    ReactTestUtils = require("../../ReactTestUtils");
+    ReactTestUtils = require('ReactTestUtils');
   });
 
   it('provides a default shouldComponentUpdate implementation', function() {
@@ -30,7 +30,7 @@ describe('ReactComponentWithPureRenderMixin', function() {
       constructor(props, context) {
         super(props, context);
         this.state = {
-          color: 'green'
+          color: 'green',
         };
       }
 
@@ -51,7 +51,7 @@ describe('ReactComponentWithPureRenderMixin', function() {
         return {
           cut: false,
           slices: 1,
-        }
+        };
       },
 
       cut: function() {
@@ -70,7 +70,7 @@ describe('ReactComponentWithPureRenderMixin', function() {
       render: function() {
         renderCalls++;
         return <div />;
-      }
+      },
     });
 
     var instance = ReactTestUtils.renderIntoDocument(<PlasticWrap />);
@@ -118,7 +118,7 @@ describe('ReactComponentWithPureRenderMixin', function() {
       render: function() {
         renderCalls++;
         return <div />;
-      }
+      },
     });
 
     var instance = ReactTestUtils.renderIntoDocument(<Component />);
